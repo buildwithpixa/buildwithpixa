@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | BuildWithPixa</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <a href="index.html">
+      <img src="assets/logo.jpg" alt="BuildWithPixa Logo" class="logo-img" />
+    </a>
+  </div>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <!-- Hero -->
+  <section class="hero" data-aos="fade-up">
+    <h1>About BuildWithPixa</h1>
+    <p>Helping small businesses shine online with clean design, fast performance, and great user experiences.</p>
+  </section>
+
+  <!-- Our Story -->
+  <section class="services" data-aos="fade-up">
+    <h2>Our Story</h2>
+    <p>
+      BuildWithPixa was started with one goal: to give freelancers, small businesses, and creators the power to compete online without spending thousands. We build fast, user-friendly websites that work on every device, and we make sure your brand stands out.
+    </p>
+    <p>
+      From landing pages to full ecommerce shops, we’ve helped clients grow their audience, generate leads, and turn visitors into loyal customers. Whether you're a startup, photographer, service provider or a local shop — we’ve got you covered.
+    </p>
+  </section>
+
+  <!-- Skills / Tech Stack -->
+  <section class="services" data-aos="fade-up">
+    <h2>What We Work With</h2>
+    <div class="tech-icons">
+      <span>HTML5</span>
+      <span>CSS3</span>
+      <span>JavaScript</span>
+      <span>React</span>
+      <span>Firebase</span>
+      <span>Shopify</span>
+      <span>WordPress</span>
+      <span>Figma</span>
+      <span>Git</span>
+      <span>SEO Tools</span>
+    </div>
+  </section>
+
+  <!-- Meet the Creator -->
+  <section class="services" data-aos="fade-up">
+    <h2>Meet the Creator</h2>
+    <div class="card" style="max-width: 700px; margin: 0 auto;">
+      <h3>👋 Hi, I'm Brodie</h3>
+      <p>I’m the person behind BuildWithPixa — a passionate web developer from the UK. I’ve been building websites since I was a teen, and now I help businesses like yours look professional online without the stress or huge price tag.</p>
+      <p>I believe websites should be clean, fast, mobile-friendly, and actually help your business grow. I use tools like React, Firebase, and Shopify to build sites that not only look great, but work great too.</p>
+    </div>
+  </section>
+
+  <!-- Core Values (Expandable Accordion) -->
+  <section class="faq" data-aos="fade-up">
+    <h2>Our Values</h2>
+    <div class="accordion-container">
+
+      <div class="accordion-item">
+        <button class="accordion-toggle">🎯 Simplicity First</button>
+        <div class="accordion-content">
+          <p>We don’t overcomplicate things. Every website is built with clarity, performance and ease of use in mind.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-toggle">⚡ Speed & Performance</button>
+        <div class="accordion-content">
+          <p>We optimize everything — from images to loading speed — to make sure your site loads fast and ranks well on Google.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-toggle">🤝 Communication</button>
+        <div class="accordion-content">
+          <p>You’ll always know what’s happening. We keep in touch during the build and explain things clearly without jargon.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-toggle">📈 Value Over Flash</button>
+        <div class="accordion-content">
+          <p>We're focused on function and results — not just fancy animations. Your site is built to bring real business value.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="contact" data-aos="fade-up">
+    <h2>Want to Work Together?</h2>
+    <p>Whether you have a full plan or just an idea, we’ll help turn it into a powerful, professional website.</p>
+    <a href="contact.html" class="btn">Start Your Project</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 BuildWithPixa. All rights reserved.</p>
+    <div class="socials">
+      <a href="https://instagram.com/buildwithpixa" target="_blank">Instagram</a>
+      <a href="#">GitHub</a>
+      <a href="#">Fiverr</a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+
+    // Accordion toggle
+    const toggles = document.querySelectorAll('.accordion-toggle');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        toggle.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
