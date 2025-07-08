@@ -16,6 +16,12 @@
       <img src="assets/logo.jpg" alt="BuildWithPixa Logo" class="logo-img" />
     </a>
   </div>
+  <div class="hamburger" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
   <nav>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -180,5 +186,11 @@
       });
     });
   </script>
+  <script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+</script>
+
 </body>
 </html>
