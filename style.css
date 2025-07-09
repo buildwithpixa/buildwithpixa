@@ -318,60 +318,32 @@ footer .socials a {
 
 .tech-section h2 {
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: #111;
 }
 
 .tech-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   justify-content: center;
+  gap: 1rem;
 }
 
 .tech {
-  display: inline-block;
+  background-color: #f2f4f7;
+  border: 1px solid #dbe0e5;
   padding: 0.6rem 1.2rem;
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.95rem;
-  color: #fff;
-  transition: transform 0.3s ease;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .tech:hover {
-  transform: scale(1.1);
+  transform: translateY(-3px);
+  background-color: #e6f0ff;
+  color: #0077ff;
 }
 
-/* Colors per tech */
-.tech.html {
-  background: #e34c26;
-}
-
-.tech.css {
-  background: #264de4;
-}
-
-.tech.js {
-  background: #f7df1e;
-  color: #000;
-}
-
-.tech.react {
-  background: #61dafb;
-  color: #000;
-}
-
-.tech.firebase {
-  background: #ffca28;
-  color: #000;
-}
-
-.tech.tailwind {
-  background: #38bdf8;
-  color: #000;
-}
-
-.tech.github {
-  background: #333;
-}
