@@ -308,3 +308,46 @@ footer .socials a {
     display: flex;
   }
 }
+
+
+.tech-section {
+  padding: 3rem 2rem;
+  background: #fff;
+  text-align: center;
+}
+
+.tech-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #111;
+}
+
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.tech-item {
+  width: 100px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.tech-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.tech-item p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.tech-item:hover {
+  transform: scale(1.1);
+}
