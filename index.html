@@ -1,223 +1,395 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BuildWithPixa | Web Design Studio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BuildWithPixa — pixel‑perfect websites that convert</title>
+  <meta name="description" content="BuildWithPixa designs and builds fast, modern, mobile‑first websites that convert visitors into customers." />
+  <meta name="theme-color" content="#e9f3ff" />
+  <link rel="icon" href="/favicon.ico" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="BuildWithPixa — pixel‑perfect websites that convert" />
+  <meta property="og:description" content="Fast, modern, mobile‑first websites with elegant design and clean code." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://buildwithpixa.example/" />
+  <meta property="og:image" content="/og-image.jpg" />
+
+  <style>
+    :root{
+      --bg-start:#e9f3ff; /* icy blue */
+      --bg-end:#f5f7fa;   /* very light grey */
+      --ink:#0f172a;      /* dark slate */
+      --muted:#475569;    /* slate */
+      --line:#e2e8f0;     /* divider */
+      --card:#ffffff;
+      --accent:#0ea5e9;   /* soft cyan */
+      --accent-ink:#032a36;
+      --shadow: 0 10px 30px rgba(2, 12, 27, 0.08);
+      --radius: 16px;
+      --radius-lg: 22px;
+      --maxw: 1200px;
+    }
+
+    html,body{height:100%}
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color:var(--ink);
+      background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+
+    a{ color:inherit; text-decoration:none }
+    img{ max-width:100%; display:block }
+
+    /* Layout */
+    .container{ width:100%; max-width:var(--maxw); margin-inline:auto; padding: 0 1rem }
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px);
+      background: color-mix(in srgb, white 70%, transparent);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; height:64px }
+    .brand{ display:flex; align-items:center; gap:.75rem }
+    .brand .wordmark{ font-weight:700; letter-spacing:.2px; text-transform:lowercase }
+
+    .logo{ width:36px; height:36px }
+    .spacer{ flex:1 }
+    .nav a{ font-size:.95rem; color:var(--muted); padding:.5rem .75rem; border-radius:10px }
+    .nav a:hover{ color:var(--ink); background:#eef6ff }
+    .cta{ background:var(--ink); color:white; padding:.6rem .95rem; border-radius:12px; box-shadow: var(--shadow); font-weight:600 }
+    .cta:hover{ transform:translateY(-1px) scale(1.01); background:#111827 }
+
+    /* Mobile menu */
+    .menu-btn{ display:none; border:1px solid var(--line); padding:.55rem .7rem; border-radius:12px; background:var(--card) }
+    .menu-panel{ position:fixed; inset:0 0 auto 0; top:64px; background:white; border-top:1px solid var(--line); transform:translateY(-8px); opacity:0; pointer-events:none; transition:.25s ease; }
+    .menu-panel.open{ transform:none; opacity:1; pointer-events:auto }
+    .menu-links{ display:grid; gap:.25rem; padding: .75rem 1rem 1rem }
+    .menu-links a{ padding:.9rem 1rem; border-radius:12px; background:#f8fafc; color:var(--muted) }
+    .menu-links a:hover{ background:#eef6ff; color:var(--ink) }
+
+    /* Hero */
+    .hero{ padding: clamp(3rem, 7vw, 7rem) 0 3rem }
+    .hero-grid{ display:grid; gap:2rem; align-items:center }
+    .hero h1{ font-size: clamp(2rem, 4.5vw, 3.25rem); line-height:1.1; margin:0 0 1rem 0 }
+    .hero p{ font-size: clamp(1rem, 2vw, 1.25rem); color:var(--muted); margin:0 0 1.25rem 0 }
+    .hero-cta{ display:flex; gap:.75rem; flex-wrap:wrap }
+    .btn-outline{ border:1.5px solid var(--ink); color:var(--ink); background:transparent }
+    .btn-outline:hover{ background:#0f172a; color:#fff }
+
+    .hero-card{ background: var(--card); border:1px solid var(--line); border-radius: var(--radius-lg); padding:1rem; box-shadow: var(--shadow) }
+    .stats{ display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:.5rem; text-align:center }
+    .stat h3{ margin:.15rem 0 0 0; font-size:1.25rem }
+    .stat p{ margin:0; color:var(--muted); font-size:.85rem }
+
+    /* Sections */
+    section{ padding: clamp(2.5rem, 6vw, 4rem) 0 }
+    .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:1.25rem }
+    .eyebrow{ letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-size:.78rem }
+    h2{ font-size: clamp(1.5rem, 3.2vw, 2.15rem); margin:.25rem 0 0 0 }
+    .grid{ display:grid; gap:1rem }
+
+    /* Services */
+    .service{ background:var(--card); border:1px solid var(--line); padding:1rem; border-radius:var(--radius); box-shadow:var(--shadow); position:relative; overflow:hidden }
+    .service .tag{ position:absolute; top:.75rem; right:.75rem; font-size:.7rem; padding:.25rem .45rem; border-radius:999px; background:#ecfeff; color:#0369a1; border:1px solid #cffafe }
+    .service h3{ margin:.25rem 0 .35rem 0; font-size:1.15rem }
+    .service p{ margin:0; color:var(--muted); font-size:.95rem }
+
+    /* Portfolio */
+    .cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1rem }
+    .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column }
+    .thumb{ aspect-ratio:16/10; background:linear-gradient(135deg, #e2e8f0, #f8fafc) }
+    .card .body{ padding: .85rem 1rem; }
+    .card .title{ font-weight:600 }
+    .card .meta{ color:var(--muted); font-size:.9rem }
+
+    /* Testimonials */
+    .testi{ background:var(--card); border:1px solid var(--line); padding:1rem; border-radius:var(--radius); box-shadow:var(--shadow) }
+    .quote{ font-size:1rem }
+    .who{ color:var(--muted); font-size:.9rem; margin-top:.25rem }
+
+    /* CTA strip */
+    .cta-strip{ background:linear-gradient(90deg, rgba(14,165,233,.1), rgba(2,132,199,.08)); border:1px solid #bae6fd; border-radius:var(--radius-lg); padding:1rem; display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; justify-content:space-between }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--line); padding:1.5rem 0 3rem; color:var(--muted) }
+
+    /* Utilities */
+    .hide-sm{ display:none }
+    .pill{ padding:.4rem .7rem; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.8rem }
+    .reveal{ opacity:0; transform: translateY(8px); transition: .6s ease }
+    .reveal.visible{ opacity:1; transform:none }
+
+    /* Responsive */
+    @media (min-width: 768px){
+      .menu-btn{ display:none }
+      .hide-sm{ display:initial }
+      .hero-grid{ grid-template-columns: 1.2fr .8fr }
+      .grid.cols-3{ grid-template-columns: repeat(3, minmax(0, 1fr)) }
+      .grid.cols-2{ grid-template-columns: repeat(2, minmax(0, 1fr)) }
+      .stats{ gap:1rem }
+    }
+    @media (max-width: 767px){
+      .menu-btn{ display:inline-flex; align-items:center; justify-content:center }
+      nav.primary{ display:none }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ transition:none }
+      .spin-slow{ animation:none }
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand" aria-label="BuildWithPixa home">
+        <img class="logo" src="/logo.jpg" alt="buildwithpixa logo">
+        <span class="wordmark">buildwithpixa</span>
+      </a>
 
-<!-- Header -->
-<header>
-  <div class="header-inner">
-    <a href="/index.html" class="logo">
-      <img src="/logo.jpg" alt="BuildWithPixa Logo" class="logo-img" />
-    </a>
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+      <nav class="primary hide-sm" aria-label="primary">
+        <a href="#services">services</a>
+        <a href="#projects">projects</a>
+        <a href="#pricing">pricing</a>
+        <a href="#about">about</a>
+        <a href="#contact" class="cta">get a quote</a>
+        <a href="https://instagram.com/buildwithpixa" class="pill" target="_blank">instagram</a>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">☰</button>
     </div>
-  </div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/services.html">Services</a></li>
-      <li><a href="/projects.html">Projects</a></li>
-      <li><a href="/contact.html">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-
+    <div class="menu-panel" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile menu">
+      <div class="menu-links container">
+        <a href="#services">services</a>
+        <a href="#projects">projects</a>
+        <a href="#pricing">pricing</a>
+        <a href="#about">about</a>
+        <a href="#contact" class="cta" style="text-align:center">get a quote</a>
+        <a href="https://instagram.com/buildwithpixa" class="pill" style="text-align:center" target="_blank">instagram</a>
+      </div>
+    </div>
+  </header>
 
   <!-- Hero -->
-  <section class="hero" data-aos="fade-up">
-    <h1>Building Beautiful, Fast & Functional Websites</h1>
-    <p>Helping small businesses, freelancers & creators grow online with modern, responsive websites.</p>
-    <a href="contact.html" class="btn" data-aos="zoom-in" data-aos-delay="200">Let’s Build Together</a>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow reveal">build with precision · ship with speed</p>
+        <h1 class="reveal">pixel‑perfect websites that convert</h1>
+        <p class="reveal">We craft fast, mobile‑first websites with clean code, elegant design, and a laser‑focus on conversions. Let’s turn more visitors into customers.</p>
+        <div class="hero-cta reveal">
+          <a class="cta" href="#contact">get a quote</a>
+          <a class="cta btn-outline" href="#projects">see projects</a>
+        </div>
+      </div>
+      <div>
+        <div class="hero-card reveal" aria-hidden="true">
+          <div style="display:grid; grid-template-columns:1fr; gap:1rem; align-items:center">
+            <!-- Logo image instead of 3D cube -->
+            <img src="/logo.jpg" alt="buildwithpixa logo" style="width:100%; max-width:240px; margin-inline:auto; filter:drop-shadow(0 10px 20px rgba(2,12,27,.08));">
+            <div class="stats" aria-label="Key metrics">
+              <div class="stat">
+                <h3>100%</h3><p>mobile‑first</p>
+              </div>
+              <div class="stat">
+                <h3>90+</h3><p>lighthouse perf</p>
+              </div>
+              <div class="stat">
+                <h3>SEO</h3><p>ready structure</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="about">
-    <h2 data-aos="fade-up">About BuildWithPixa</h2>
-    <div class="accordion-container">
-
-      <div class="accordion-item" data-aos="fade-up">
-        <button class="accordion-toggle">Who We Are</button>
-        <div class="accordion-content">
-          <p>BuildWithPixa is a modern web design studio focused on clean, responsive websites. We help small businesses and freelancers grow online with custom-built digital experiences.</p>
-        </div>
+  <!-- Logos / Social proof -->
+  <section>
+    <div class="container reveal">
+      <div class="cta-strip">
+        <div style="font-weight:600">trusted results, clean code, on‑time delivery</div>
+        <a href="#contact" class="pill">start your project →</a>
       </div>
-
-      <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
-        <button class="accordion-toggle">What We Build</button>
-        <div class="accordion-content">
-          <p>We create everything from personal portfolios and landing pages to full ecommerce stores and business websites, using technologies like React, Tailwind, and Shopify.</p>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
-        <button class="accordion-toggle">Why Clients Choose Us</button>
-        <div class="accordion-content">
-          <p>Clients choose BuildWithPixa for our mobile-first design, fast delivery, SEO focus, and polished user experiences that convert visitors into customers.</p>
-        </div>
-      </div>
-
     </div>
   </section>
 
   <!-- Services -->
-  <section id="services" class="services">
-    <h2 data-aos="fade-up">What We Do</h2>
-    <div class="cards">
-      <div class="card" data-aos="fade-up" data-aos-delay="100">
-        <h3>Responsive Design</h3>
-        <p>Websites that look and work beautifully on every screen size.</p>
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">services</div>
+          <h2>everything you need to launch and grow</h2>
+        </div>
+        <a class="pill" href="#pricing">see pricing</a>
       </div>
-      <div class="card" data-aos="fade-up" data-aos-delay="200">
-        <h3>Fast Hosting</h3>
-        <p>Optimized builds with fast, secure deployment on modern platforms.</p>
-      </div>
-      <div class="card" data-aos="fade-up" data-aos-delay="300">
-        <h3>SEO Optimization</h3>
-        <p>Clean structure and fast speeds to help rank on Google.</p>
-      </div>
-      <div class="card" data-aos="fade-up" data-aos-delay="400">
-        <h3>Custom Features</h3>
-        <p>Galleries, booking forms, animations — all tailored to your brand.</p>
+      <div class="grid cols-3">
+        <article class="service reveal">
+          <span class="tag">popular</span>
+          <h3>custom web development</h3>
+          <p>Modern, responsive sites with clean, scalable code. Built for speed, accessibility, and conversions.</p>
+        </article>
+        <article class="service reveal">
+          <h3>branding & ui design</h3>
+          <p>Minimal, geometric aesthetics that match your identity. Style guides, color systems, and components.</p>
+        </article>
+        <article class="service reveal">
+          <h3>seo & performance</h3>
+          <p>Technical SEO, schema, and Lighthouse optimization so you get found — and pages load instantly.</p>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="portfolio">
-    <h2 data-aos="fade-up">Featured Projects</h2>
-    <div class="portfolio-grid">
-
-      <a href="https://example.com/alicia-photography" class="project" target="_blank" data-aos="fade-up">
-        <h4>📸 Alicia's Photography</h4>
-        <p>Minimal portfolio site with custom gallery and lightbox functionality.</p>
-        <span>HTML / CSS / JavaScript</span>
-      </a>
-
-      <a href="https://example.com/fitpro-gym" class="project" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <h4>🏋️‍♂️ FitPro Gym</h4>
-        <p>High-converting landing page with Calendly integration for bookings.</p>
-        <span>React / Tailwind / Firebase</span>
-      </a>
-
-      <a href="https://example.com/urbanwear" class="project" target="_blank" data-aos="fade-up" data-aos-delay="200">
-        <h4>🛒 UrbanWear</h4>
-        <p>Custom ecommerce fashion store built with a modern shopping experience.</p>
-        <span>Shopify / Liquid / SCSS</span>
-      </a>
-
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">projects</div>
+          <h2>work that blends beauty and performance</h2>
+        </div>
+        <a class="pill" href="#contact">work with us</a>
+      </div>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="thumb" role="img" aria-label="Project screenshot placeholder"></div>
+          <div class="body">
+            <div class="title">ecommerce redesign</div>
+            <div class="meta">+38% conversion · next.js + stripe</div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="thumb"></div>
+          <div class="body">
+            <div class="title">portfolio revamp</div>
+            <div class="meta">90+ Lighthouse · semantic HTML</div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="thumb"></div>
+          <div class="body">
+            <div class="title">startup landing</div>
+            <div class="meta">under 1s TTI · cloud hosting</div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
-
-  <!-- Tech Stack -->
-<section class="tech-section" data-aos="fade-up">
-  <h2>Tech We Use</h2>
-  <div class="tech-badges">
-    <span class="tech">HTML5</span>
-    <span class="tech">CSS3</span>
-    <span class="tech">JavaScript</span>
-    <span class="tech">React</span>
-    <span class="tech">Firebase</span>
-    <span class="tech">Tailwind</span>
-    <span class="tech">GitHub</span>
-  </div>
-</section>
-
-
 
   <!-- Testimonials -->
-  <section class="testimonials" data-aos="fade-up">
-    <h2>What Clients Say</h2>
-    <div class="cards">
-      <div class="card" data-aos="fade-right">
-        <p>"BuildWithPixa delivered a slick, fast site that impressed all my clients. Highly recommended!"</p>
-        <strong>- Sam R., Gym Owner</strong>
+  <section>
+    <div class="container grid cols-3">
+      <div class="testi reveal">
+        <div class="quote">“cleanest codebase we’ve received — site loads in a blink.”</div>
+        <div class="who">— founder, ecommerce brand</div>
       </div>
-      <div class="card" data-aos="fade-left" data-aos-delay="200">
-        <p>"Super impressed. Everything was spot on and I’ll be hiring them again!"</p>
-        <strong>- Alicia D., Photographer</strong>
+      <div class="testi reveal">
+        <div class="quote">“from idea to launch in two weeks. gorgeous and fast.”</div>
+        <div class="who">— creative director</div>
+      </div>
+      <div class="testi reveal">
+        <div class="quote">“traffic up, bounce down, leads doubled. highly recommend.”</div>
+        <div class="who">— agency partner</div>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="contact" data-aos="fade-up">
-    <h2>Let’s Work Together</h2>
-    <p>Have a project idea or want a quote? Reach out and let's talk.</p>
-    <p><strong>Email:</strong> <a href="mailto:buildwithpixa@gmail.com">buildwithpixa@gmail.com</a></p>
-    <p><strong>Instagram:</strong> <a href="https://instagram.com/buildwithpixa" target="_blank">@buildwithpixa</a></p>
-    <a href="mailto:hello@buildwithpixa.com" class="btn">Contact Us</a>
+  <!-- Pricing teaser -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">pricing</div>
+          <h2>clear tiers, custom options</h2>
+        </div>
+        <a class="pill" href="#contact">request a custom quote</a>
+      </div>
+      <div class="grid cols-3">
+        <div class="service reveal">
+          <span class="tag">starter</span>
+          <h3>launch</h3>
+          <p>Single‑page site or landing page, built for speed and conversions. Perfect for quick launches.</p>
+        </div>
+        <div class="service reveal">
+          <span class="tag">pro</span>
+          <h3>growth</h3>
+          <p>Full multi‑page website, responsive design, SEO optimized. Great for scaling startups & brands.</p>
+        </div>
+        <div class="service reveal">
+          <span class="tag">enterprise</span>
+          <h3>custom</h3>
+          <p>High‑performance, feature‑rich websites with integrations and advanced SEO/performance tuning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Contact -->
+  <section id="about">
+    <div class="container reveal">
+      <div class="eyebrow">about</div>
+      <h2>we love clean code and beautiful experiences</h2>
+      <p>BuildWithPixa is a small team that focuses on delivering fast, reliable, and modern websites. We value clarity, performance, and results-driven design. We’re all about turning ideas into working products without the fluff.</p>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section id="contact">
+    <div class="container">
+      <div class="cta-strip reveal">
+        <div>
+          <div style="font-weight:700; font-size:1.15rem">have a project in mind?</div>
+          <div style="color:var(--muted)">let’s build something extraordinary.</div>
+        </div>
+        <div style="display:flex; gap:.5rem; flex-wrap:wrap">
+          <a class="cta" href="mailto:buildwithpixa@gmail.com">email us</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 BuildWithPixa. All rights reserved.</p>
-    <div class="socials">
-      <a href="https://instagram.com/buildwithpixa" target="_blank">Instagram</a>
-      <a href="#">GitHub</a>
-      <a href="#">Fiverr</a>
+    <div class="container" style="display:flex; gap:1rem; justify-content:space-between; align-items:center; flex-wrap:wrap">
+      <div style="display:flex; align-items:center; gap:.5rem">
+        <img class="logo" src="/logo.jpg" alt="buildwithpixa logo" style="width:36px; height:36px">
+        <span>© <span id="y"></span> buildwithpixa</span>
+      </div>
+      <div style="display:flex; gap:.5rem; align-items:center">
+        <a class="pill" href="#about">about</a>
+        <a class="pill" href="#projects">projects</a>
+        <a class="pill" href="#pricing">pricing</a>
+        <a class="pill" href="#contact">contact</a>
+        <a class="pill" href="https://instagram.com/buildwithpixa" target="_blank">instagram</a>
+      </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click',()=>{
+      const open = mobileMenu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open)
     });
 
-    // Accordion functionality
-    const toggles = document.querySelectorAll('.accordion-toggle');
-    toggles.forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        const item = toggle.parentElement;
-        item.classList.toggle('open');
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add('visible');
       });
-    });
+    },{ threshold: .15 });
+    reveals.forEach(r=>observer.observe(r));
+
+    // Current year
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-  <script>
-  function toggleMenu() {
-    document.querySelector('.nav-links').classList.toggle('open');
-  }
-</script>
-
-<script>
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.remove('open');
-    });
-  });
-</script>
-
-<script>
-  function toggleMenu() {
-    document.querySelector('.nav-links').classList.toggle('open');
-  }
-
-  // Close menu on page load (reset menu)
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.nav-links')?.classList.remove('open');
-  });
-
-  // Optional: auto-close menu when clicking nav links (mobile)
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.querySelector('.nav-links')?.classList.remove('open');
-    });
-  });
-</script>
-
-  
 </body>
 </html>
-
